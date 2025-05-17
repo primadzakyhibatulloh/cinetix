@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CINETix Navbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+  <style>
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(90deg, #011228,rgb(7, 34, 68));
+      overflow-x: hidden; /* Agar tidak scroll horizontal */
+    }
+
+    .logo-hover:hover {
+      text-shadow: 0 0 15px #ff3c3c, 0 0 30px #ff3c3c, 0 0 45px #FFD700;
+      transform: scale(1.05) translateY(-2px);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: all 0.4s ease-in-out;
+    }
+
+    .btn-shimmer:hover::before {
+      left: 100%;
+    }
+
+    .btn-shimmer:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    .mobile-link {
+      transition: all 0.3s ease;
+    }
+
+    .mobile-link:hover {
+      transform: translateX(5px) scale(1.05);
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    #mobile-menu.show {
+      animation: slideFade 0.4s ease-out forwards;
+    }
+
+    @keyframes fade-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+    @keyframes slideFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hamburger animation */
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      margin: 5px auto;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+
+
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;             /* Chrome, Safari, Opera */
+    }
+
+    .custom-bullet {
+    display: inline-block;
+    width: 28px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 4px;
+    border-radius: 2px;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    }
+
+    .swiper-pagination-bullet-active.custom-bullet {
+    background: #fff; /* Tailwind yellow-300 */
+    border: 1px solid #facc15;
+    }
+
+      @keyframes horrorShake {
+      0%, 100% { transform: translate(0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, 1px); }
+      }
+
+      @media (hover: none) {
+        .group:active img {
+          filter: brightness(120%) saturate(200%);
+          animation: horrorShake 0.4s ease-in-out;
+        }
+        .group:active p {
+          color: #ef4444; /* red-500 */
+          animation: horrorShake 0.4s ease-in-out;
+        }
+      }
+      
+      @media (max-width: 768px) {
+      h1 {
+        font-size: 4rem; /* Ukuran font lebih besar di mobile */
+        margin-bottom: 4rem; /* Mengurangi margin bawah agar lebih dekat dengan search bar */
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="w-full fixed top-0 left-0 z-50 shadow-lg bg-[#011C3C]/70 backdrop-blur-md border-b border-white/10">
+
+    <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Logo -->
+      <a href="#" class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
+        <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
+      </a>
+
+      <!-- Desktop Button -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="#"
+           class="px-5 py-2 rounded-full bg-[#ff3c61] text-white font-bold text-base flex items-center gap-2 btn-shimmer">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="#"
+           class="px-5 py-2 rounded-full bg-[#ffcc00] text-white font-bold text-base flex items-center gap-2 btn-shimmer">
+          <i class="fas fa-user-plus"></i> Register
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="menu-toggle" class="md:hidden focus:outline-none hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+  <div class="flex flex-col gap-4 text-white text-lg pl-4">
+
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-red-600">
+      <i class="fas fa-sign-in-alt text-red-600"></i> <span class="font-bold">Login</span>
+    </a>
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-yellow-600">
+      <i class="fas fa-user-plus text-yellow-600"></i> <span class="font-bold">Register</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-cyan-400 transition-all duration-300 transform hover:scale-105">
+      <i class="fas fa-film text-cyan-400 text-xl"></i> <span class="font-bold">Film</span>
+    </a>
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-emerald-400 transition-all duration-300 transform hover:scale-105">
+      <i class="fas fa-utensils text-emerald-400 text-xl"></i> <span class="font-bold">Food</span>
+    </a>
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-fuchsia-400 transition-all duration-300 transform hover:scale-105">
+      <i class="fas fa-tags text-fuchsia-400 text-xl"></i> <span class="font-bold">Promo</span>
+    </a>
+    <a href="#" class="flex items-center gap-3 mobile-link hover:text-violet-600 transition-all duration-300 transform hover:scale-105">
+      <i class="fas fa-newspaper text-violet-600 text-xl"></i> <span class="font-bold">News</span>
+    </a>
+
+  </div>
+</div>
+
+
+</nav>
+
+<section class="min-h-screen pt-24 flex flex-col items-center justify-center text-white px-6">
+
+  <!-- Judul -->
+<h1 class="text-[3.2rem] mb-1 text-center font-bold text-white animate-fade-in-down">
+  Temukan Pengalaman Menonton Terbaik
+</h1>
+
+  <!-- Search Bar -->
+<div class="relative w-full max-w-xl mx-auto my-12 animate__animated animate__pulse animate__infinite">
+  <!-- Icon -->
+  <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl drop-shadow-[0_0_5px_#00f7ff]">
+    <i class="fas fa-search"></i>
+  </div>
+
+  <!-- Neon Input -->
+  <input
+    type="text"
+    placeholder="Cari film sesuka anda"
+    class="w-full pl-12 pr-4 py-3 rounded-full text-white bg-[#0f172a]/40 border-2 border-cyan-400 placeholder-cyan-300 placeholder:drop-shadow-[0_0_5px_#00f7ff] text-lg font-semibold shadow-[0_0_10px_#00f7ff] focus:shadow-[0_0_25px_#00f7ff,0_0_50px_#00f7ff] focus:outline-none transition-all duration-500 ease-in-out"
+  />
+</div>
+
+  <!-- Menu -->
+<div class="grid grid-cols-4 gap-12" data-aos="fade-up" data-aos-delay="300">
+    
+  <!-- Film -->
+  <a href="#film" class="group text-center cursor-pointer transform transition duration-300 hover:scale-110">
+    <div class="bg-cyan-400 text-white p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-cyan-500/50">
+      <i class="fas fa-film animate-pulse"></i>
+    </div>
+    <p class="mt-3 font-semibold text-lg group-hover:text-cyan-400 transition">Film</p>
+  </a>
+
+  <!-- Food -->
+  <a href="#food" class="group text-center cursor-pointer transform transition duration-300 hover:scale-110">
+    <div class="bg-red-400 text-white p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-red-500/50">
+      <i class="fas fa-burger animate-pulse"></i>
+    </div>
+    <p class="mt-3 font-semibold text-lg group-hover:text-red-400 transition">Food</p>
+  </a>
+
+  <!-- Promo -->
+  <a href="#promo" class="group text-center cursor-pointer transform transition duration-300 hover:scale-110">
+    <div class="bg-yellow-400 text-white p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-yellow-400/50">
+      <i class="fas fa-tags animate-pulse"></i>
+    </div>
+    <p class="mt-3 font-semibold text-lg group-hover:text-yellow-400 transition">Promo</p>
+  </a>
+
+  <!-- News -->
+  <a href="#news" class="group text-center cursor-pointer transform transition duration-300 hover:scale-110">
+    <div class="bg-green-400 text-white p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-green-400/50">
+      <i class="fas fa-newspaper animate-pulse"></i>
+    </div>
+    <p class="mt-3 font-semibold text-lg group-hover:text-green-400 transition">News</p>
+  </a>
+  
+</div>
+
+
+</section>
+
+
+<!--SLIDER-->
+<section class="py-5 px-4 mt-10 md:mt-0">
+  <div class="max-w-6xl mx-auto relative group w-full">
+    <div class="swiper mySwiper w-full aspect-video rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(255,255,255,0.1)] ring-1 ring-white/10">
+      <div class="swiper-wrapper w-full h-full">
+        <div class="swiper-slide w-full h-full">
+          <a href="#avengers">
+            <img src="img/slider/inception.png" alt="Avengers" class="w-full h-full object-cover" />
+          </a>
+        </div>
+        <div class="swiper-slide w-full h-full">
+          <a href="#another">
+            <img src="img/slider/bom.jpeg" alt="Another" class="w-full h-full object-cover" />
+          </a>
+        </div>
+        <div class="swiper-slide w-full h-full">
+          <a href="#another">
+            <img src="img/slider/pengabdi.jpg" alt="Another" class="w-full h-full object-cover" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Indikator garis -->
+      <div class="swiper-pagination absolute bottom-3 left-0 right-0 flex justify-center space-x-2 z-10"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!--SEDANG TREN-->
+<section class="py-10 px-4 sm:px-8 md:px-12 overflow-visible">
+  <h2 class="text-white text-2xl font-semibold mb-6">Sedang Tren</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5 overflow-visible">
+
+    <!-- Card 1 -->
+    <div class="bg-slate-900 rounded-3xl shadow-md hover:shadow-pink-400 transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto">
+     <img src="img/sedang-tren/thunder.jpg" alt="Avengers" 
+     class="rounded-t-3xl w-full h-72 object-cover shadow-sm"/>
+
+      <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+        <h3 class="text-white font-bold text-lg mb-2">Thunderbolts</h3>
+        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+         <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">13+</span>
+          <span class="px-2 py-0.5 bg-gradient-to-r from-pink-500 to-pink-700 text-white font-semibold rounded-full shadow-sm border border-white/10">Fantasy</span>
+          <div class="flex items-center space-x-1">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z"/></svg>
+            <span>4.7</span>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm leading-snug">antihero MCU menjadi Geng Baru yang dituntut untuk bersatu</p>
+        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+          <a href="#" class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli Tiket</a>
+          <a href="#" class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+     <div class="bg-slate-900 rounded-3xl shadow-md hover:shadow-blue-400 transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto">
+     <img src="img/sedang-tren/back.jpg" alt="Avengers" 
+     class="rounded-t-3xl w-full h-72 object-cover shadow-sm"/>
+      <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+        <h3 class="text-white font-bold text-lg mb-2">Back In Action</h3>
+        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+          <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">13+</span>
+          <span class="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-full shadow-sm border border-white/10">Action</span>
+          <div class="flex items-center space-x-1">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z"/></svg>
+            <span>4.5</span>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm leading-snug">Comeback Cameron Diaz di dunia perfilman setelah 10 tahun hiatus.</p>
+        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+          <a href="#" class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli Tiket</a>
+          <a href="#" class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+     <div class="bg-slate-900 rounded-3xl shadow-md hover:shadow-green-400 transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto">
+     <img src="img/sedang-tren/bullet.webp" alt="Avengers" 
+     class="rounded-t-3xl w-full h-72 object-cover shadow-sm"/>
+      <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+        <h3 class="text-white font-bold text-lg mb-2">Bullet Train</h3>
+        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+          <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">13+</span>
+          <span class="px-2 py-0.5 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-full shadow-sm border border-white/10">Adventure</span>
+          <div class="flex items-center space-x-1">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z"/></svg>
+            <span>4.8</span>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm leading-snug">aksi Brad Pitt yang memerankan pembunuh bayaran saat menjalankan misi.</p>
+        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+          <a href="#" class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli Tiket</a>
+          <a href="#" class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+     <div class="bg-slate-900 rounded-3xl shadow-md hover:shadow-purple-500 transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto">
+     <img src="img/sedang-tren/edge.jpeg" alt="Avengers" 
+     class="rounded-t-3xl w-full h-72 object-cover shadow-sm"/>
+      <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+        <h3 class="text-white font-bold text-lg mb-2">Edge Of Tomorrow</h3>
+        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+          <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">13+</span>
+          <span class="px-2 py-0.5 bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold rounded-full shadow-sm border border-white/10">Sci-Fi</span>
+          <div class="flex items-center space-x-1">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z"/></svg>
+            <span>4.6</span>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm leading-snug">Mengisahkan upaya tanpa akhir Tom Cruise melawan alien yang menginvasi bumi</p>
+        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+          <a href="#" class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli Tiket</a>
+          <a href="#" class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+     <div class="bg-slate-900 rounded-3xl shadow-md hover:shadow-yellow-400 transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto">
+     <img src="img/sedang-tren/kupu-kertas.jpeg" alt="Avengers" 
+     class="rounded-t-3xl w-full h-72 object-cover shadow-sm"/>
+      <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+        <h3 class="text-white font-bold text-lg mb-2">Kupu - Kupu Kertas</h3>
+        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+          <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">13+</span>
+          <span class="px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold rounded-full shadow-sm border border-white/10">Drama</span>
+          <div class="flex items-center space-x-1">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z"/></svg>
+            <span>4.4</span>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm leading-snug">kisah cinta Ning dan Ihsan di tengah konflik ideologis tahun 1965 di Banyuwangi.</p>
+        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+          <a href="#" class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli Tiket</a>
+          <a href="#" class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!--FILM TERBAIK LUAR NEGERI -->
+<section class="px-4 sm:px-8 md:px-12 py-10">
+  <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+    <h2 class="text-white text-base md:text-2xl font-semibold">Film Terbaik Luar Negeri</h2>
+    <a href="#" class="text-blue-400 text-sm font-semibold hover:underline">Lainnya</a>
+  </div>
+
+ <!-- Mobile scroll -->
+<div class="relative -mx-4 sm:-mx-8 px-4 sm:px-8 block md:hidden overflow-x-hidden">
+  <div class="flex space-x-6 overflow-x-auto scrollbar-hide pb-8 pt-6 px-2">
+
+    <div class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105 ml-2 first:ml-2 last:mr-6">
+      <a href="#" class="block rounded-2xl overflow-visible">
+        <img src="img/terbaik-luar/godfather.jpg" alt="God Father" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">THE GODFATHER</p>
+    </div>
+
+    <div class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-visible">
+        <img src="img/terbaik-luar/civil.jpeg" alt="CIVIL WAR" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">Captain America : CIVIL WAR</p>
+    </div>
+
+    <div class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-visible">
+        <img src="img/terbaik-luar/guardians.jpg" alt="GUARDIANS VOL 2" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">GUARDIANS VOL 2</p>
+    </div>
+
+    <div class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-visible">
+        <img src="img/terbaik-luar/mickey.webp" alt="MICKEY 17" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">MICKEY 17</p>
+    </div>
+
+    <div class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105 last:mr-2">
+      <a href="#" class="block rounded-2xl overflow-visible">
+        <img src="img/terbaik-luar/bad.jpg" alt="BAD GENIUS" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">BAD GENIUS</p>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Desktop grid -->
+  <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+    <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/godfather.jpg" alt="God Father" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">THE GODFATHER</p>
+    </div>
+
+    <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/bad.jpg" alt="Avatar" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">BAD GENIUS</p>
+    </div>
+
+    <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/spiderman.jpg" alt="Avatar" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">SPIDERMAN NO WAY HOME</p>
+    </div>
+
+    <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/guardians.jpg" alt="Avatar" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">GUARDIANS VOL. 2</p>
+    </div>
+
+    <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/mickey.webp" alt="Avatar" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">MICKEY 17</p>
+    </div>
+
+     <div class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <a href="#" class="block rounded-2xl overflow-hidden">
+        <img src="img/terbaik-luar/civil.jpeg" alt="Avatar" class="w-full h-60 object-cover" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">Captain Amerika : CIVIL WAR</p>
+    </div>
+</section>
+
+
+<!--SECTION HORROR-->
+<section class="px-4 sm:px-8 md:px-12 py-10">
+  <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+    <h2 class="text-white text-base md:text-2xl font-semibold">Film Horor Terbaik</h2>
+    <a href="#" class="text-red-400 text-sm font-semibold hover:underline">Lainnya</a>
+  </div>
+
+  <!-- Mobile Scroll - FIXED: extra py-4 to avoid shadow cropping -->
+  <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 block md:hidden">
+    <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/here.jpg" alt="HEREDITARY"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        HEREDITARY
+      </p>
+    </div>
+
+    <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/jailangkung.jpg" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        JAILANGKUNG
+      </p>
+    </div>
+
+    <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/mangkujiwo2.jpg" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        MANGKUJIWO 2
+      </p>
+    </div>
+
+    <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/pamali.jpg" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        PAMALI
+      </p>
+    </div>
+
+    <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/perewangan.webp" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        PEREWANGAN
+      </p>
+    </div>
+
+
+     <div class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/setann.jpg" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        PENGABDI SETAN 2
+      </p>
+    </div>
+
+    <!-- Tambahkan lebih banyak card horor -->
+  </div>
+
+  <!-- Desktop Grid -->
+  <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+    <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/perewangan.webp" alt="perewangan"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        PEREWANGAN
+      </p>
+    </div>
+
+      <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/here.jpg" alt="HEREDITARY"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        HEREDITARY
+      </p>
+    </div>
+
+      <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/pamali.jpg" alt="Pamali"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        PAMALI
+      </p>
+    </div>
+
+      <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/setann.jpg" alt="Pengabdi Setan 2"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+       PENGABDI SETAN 2
+      </p>
+    </div>
+
+      <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/mangkujiwo2.jpg" alt="Mangkujiwo"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+        MANGKUJIWO
+      </p>
+    </div>
+
+      <div class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+      <a href="#" class="block overflow-visible rounded-xl">
+        <img src="img/horror/jailangkung.jpg" alt="Horor"
+             class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+       JAILANGKUNG
+      </p>
+    </div>
+    <!-- Tambahkan 5 card lainnya -->
+  </div>
+</section>
+
+<!--SECTION FILM DRAMA-->
+<section class="px-4 sm:px-8 md:px-12 py-10">
+  <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+    <h2 class="text-white text-base md:text-2xl font-semibold">Film Drama Terbaik</h2>
+    <a href="#" class="text-green-300 text-sm font-semibold hover:underline">Lainnya</a>
+  </div>
+
+  <!-- Mobile Scroll Cards -->
+  <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 block md:hidden">
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/cemara.jpg" alt="CEMARA"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          KELUARGA CEMARA
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/ibu.jpg" alt="IBU"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          BILA ESOK IBU TIADA
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/laskar.jpg" alt="LASKAR"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          LASKAR PELANGI
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/miracle.jpg" alt="MIRACLE"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          MIRACLE IN CELL NO 7
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/teman.webp" alt="TTM"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          TEMAN TAPI MENIKAH
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/sayap.jpeg" alt="SAYAP"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+          SAYAP SAYAP PATAH
+      </p>
+    </div>
+
+    <!-- Tambah lebih banyak card -->
+  </div>
+
+  <!-- Desktop Grid -->
+  <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/cemara.jpg" alt="Drama 1"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        CEMARA
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/ibu.jpg" alt="Surat Kecil Untuk Tuhan"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        BILA ESOK IBU TIADA
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/laskar.jpg" alt="Surat Kecil Untuk Tuhan"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        LASKAR PELANGI
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/miracle.jpg" alt="Surat Kecil Untuk Tuhan"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        MIRACLE IN CELL NO 7
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/sayap.jpeg" alt="Surat Kecil Untuk Tuhan"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        SAYAP SAYAP PATAH
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/drama/teman.webp" alt="Surat Kecil Untuk Tuhan"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+        TEMAN TAPI MENIKAH
+      </p>
+    </div>
+    <!-- Tambah lebih banyak card -->
+  </div>
+</section>
+
+
+<!--SECTION FILM ACTION-->
+<section class="px-4 sm:px-8 md:px-12 py-10">
+  <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+    <h2 class="text-white text-base md:text-2xl font-semibold">Film Action Terbaik</h2>
+    <a href="#" class="text-orange-400 text-sm font-semibold hover:underline">Lainnya</a>
+  </div>
+
+  <!-- Mobile Scroll Cards -->
+  <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 block md:hidden">
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/big4.jpg" alt="BIG 4"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        THE BIG 4
+      </p>
+    </div>
+
+    <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/extra.jpg" alt="EXTRACTION"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        EXTRACTION 2
+      </p>
+    </div>
+
+      <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/jody.jpeg" alt="JODY"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        BEN & JODY
+      </p>
+    </div>
+
+     <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/night.jpg" alt="NIGHT US"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        THE NIGHT COME FOR US
+      </p>
+    </div>
+
+     <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/raden.jpeg" alt="RADEN"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        MENCURI RADEN SALEH
+      </p>
+    </div>
+
+     <div class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/johnwick.png" alt="Action 1"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        JOHN WICK 3
+      </p>
+    </div>
+    <!-- Tambahkan lebih banyak card -->
+  </div>
+
+  <!-- Desktop Grid -->
+  <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/johnwick.png" alt="Action 1"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        JOHN WICK 3
+      </p>
+    </div>
+
+    <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/extra.jpg" alt="Action 2"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        EXTRACTION 2
+      </p>
+    </div>
+
+     <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/big4.jpg" alt="Action 2"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        THE BIG 4
+      </p>
+    </div>
+
+     <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/jody.jpeg" alt="Action 2"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        BEN & JODY
+      </p>
+    </div>
+
+     <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/night.jpg" alt="Action 2"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        THE NIGHT COME FOR US
+      </p>
+    </div>
+
+     <div class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+      <a href="#" class="block overflow-visible rounded-2xl">
+        <img src="img/aksi/raden.jpeg" alt="Action 2"
+             class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+        MENCURI RADEN SALEH
+      </p>
+    </div>
+
+    <!-- Tambah lebih banyak card action -->
+  </div>
+</section>
+
+<!--SECTION FILM KOMEDI-->
+<section class="px-4 sm:px-8 md:px-12 py-10">
+  <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+    <h2 class="text-white text-base md:text-2xl font-semibold">Film Komedi Terbaik</h2>
+    <a href="#" class="text-purple-300 text-sm font-semibold hover:underline">Lainnya</a>
+  </div>
+
+  <!-- Mobile Scroll Cards -->
+  <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 block md:hidden">
+    <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/apk.webp" alt="SESUAI APLIKASI"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        SESUAI APLIKASI
+      </p>
+    </div>
+
+    <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/boss.jpeg" alt="KAKA BOSS"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        KAKA BOSS
+      </p>
+    </div>
+
+    <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/cuan.jpg" alt="GAMPANG CUAN"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        GAMPANG CUAN
+      </p>
+    </div>
+
+    <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/laen.jpg" alt="AGAK LAEN"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        AGAK LAEN
+      </p>
+    </div>
+
+        <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/ngeri.jpeg" alt="NGERI SEDAP"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        AGAK LAEN
+      </p>
+    </div>
+
+        <div class="group flex-none w-52 bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.4)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/pasutri.jpg" alt="PASUTRI GAJE"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        PASUTRI GAJE
+      </p>
+    </div>
+
+
+    
+
+    <!-- Tambahkan lebih banyak card -->
+  </div>
+
+  <!-- Desktop Grid -->
+  <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+    <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/apk.webp" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        SESUAI APLIKASI
+      </p>
+    </div>
+
+    <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/boss.jpeg" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        KAKA BOSS
+      </p>
+    </div>
+
+     <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/cuan.jpg" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        GAMPANG CUAN
+      </p>
+    </div>
+
+     <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/laen.jpg" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        AGAK LAEN
+      </p>
+    </div>
+
+     <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/ngeri.jpeg" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        NGERI NGERI SEDAP
+      </p>
+    </div>
+
+     <div class="group bg-slate-800/60 backdrop-blur-md p-4 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+      <a href="#" class="block overflow-hidden rounded-3xl">
+        <img src="img/komedi/pasutri.jpg" alt="Komedi"
+             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+      </a>
+      <p class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+        PASUTRI GAJE
+      </p>
+    </div>
+
+    
+    
+    <!-- Tambah lebih banyak card -->
+  </div>
+</section>
+
+<!--SECTION NEWS-->
+<section class="text-white py-12 px-4 sm:px-6 lg:px-16">
+  <div class="grid lg:grid-cols-3 gap-10">
+
+    <!-- HOT NEWS -->
+    <div class="lg:col-span-2">
+      <h2 class="text-white text-xl font-bold border-l-4 border-yellow-400 pl-4 mb-6">🔥 Hot News</h2>
+
+      <!-- LIST BERITA HOT -->
+      <div class="space-y-6">
+
+        <!-- ITEM HOT NEWS -->
+        <a href="#" class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+          <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+            <img src="img/news-left/bom.jpg" alt="bom" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5 flex-1">
+            <div class="flex items-center mb-2 text-yellow-400">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z"/></svg>
+              <span class="text-sm text-gray-400">Jumat, 16 April 2025</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+              <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+              13 BOM DI JAKARTA MELEDAK !!!
+            </h3>
+            <p class="text-sm text-gray-300">Film 13 Bom di Jakarta merupakan salah satu film sukses yang diadaptasi dari peristiwa nyata. Film ini berkisah tentang serangkaian bom mengancam keamanan warga Jakarta.
+          Badan Intelijen dan agen rahasia segera menyelidiki, mengarahkan mereka pada Oscar dan William. Namun, misi mereka menjadi rumit ketika kecurigaan penyusup muncul dalam tim</p>
+          </div>
+        </a>
+
+        <!-- ITEM HOT NEWS LAINNYA -->
+        <a href="#" class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+          <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+            <img src="img/news-left/jumbo.png" alt="Jumbo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5 flex-1">
+            <div class="flex items-center mb-2 text-yellow-400">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z"/></svg>
+              <span class="text-sm text-gray-400">Rabu, 10 Juni 2025</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+              <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+              Jumbo: Film Petualangan Tersukses Ke-4 Sepanjang Masa 2025
+            </h3>
+            <p class="text-sm text-gray-300">Di balik pujian tentang detail animasinya yang ciamik dan kritikan karena memuat unsur hantu, film Jumbo disebut menyimpan pesan mendalam tentang bagaimana anak-anak memproses duka melalui imajinasi cerita, gambar dan permainan peran.</p>
+          </div>
+        </a>
+
+
+        <a href="#" class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+          <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+            <img src="img/news-left/pengabdi.jpg" alt="Jumbo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-5 flex-1">
+            <div class="flex items-center mb-2 text-yellow-400">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z"/></svg>
+              <span class="text-sm text-gray-400">Selasa, 25 Mei 2025</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+              <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+              ”Pengabdi Setan 2: Communion”, Gugatan Sosial dalam Selubung Horor
+            </h3>
+            <p class="text-sm text-gray-300">”Seram” adalah kata yang acapkali muncul ketika berkaitan dengan film horor. Namun, jika lebih cermat menyaksikan, teror dan ancaman yang hadir merupakan wujud dari laku sebagai manusia kepada sesama dan lingkungannya. Siapa yang sangka gugatan isu sosial mengemuka di antara teriak ketakutan para penonton.</p>
+          </div>
+        </a>
+        <!-- Tambahkan lebih banyak berita seperti di atas -->
+
+      </div>
+    </div>
+
+    <!-- MORE NEWS -->
+    <div>
+      <h2 class="text-white text-xl font-bold border-l-4 border-yellow-400 pl-4 mb-6">📰 More News</h2>
+      <ul class="space-y-4 text-sm">
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🕷 Spider–Man: No Way Home" Pecahkan Rekor Penjualan Tiket Global</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">💊 The Matrix Resurrections" Kembali Hadir di Dunia Sci-Fi</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🎬 Film Animasi "Encanto" Jadi Favorit Baru</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🌌 Dune Tampilkan Visual Spektakuler, Dapat Pujian Dunia Perfilman</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🏆 Film Drama "Nomadland" Menangkan Piala Oscar</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🏁 Fast & Furious 10 Tampilkan Aksi Laga Terbaru</a></li>
+        <li><a href="#" class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">🦇 The Batman Hadirkan Versi Baru Sang Pahlawan Gotham</a></li>
+      </ul>
+
+      <div class="mt-6">
+        <a href="/berita" class="inline-block relative overflow-hidden group text-sm font-bold px-6 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-black transition-all duration-300 shadow-md hover:shadow-lg">
+          <span class="relative z-10">LIHAT BERITA LAINNYA →</span>
+          <span class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition duration-300"></span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--SECTION VIDEO & TRAILERS-->
+<section class="pt-16 pb-10 px-6 md:px-12 text-white text-center">
+  <h2 class="text-4xl font-extrabold mb-12 drop-shadow-lg tracking-wide">Video & Trailers</h2>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+    
+    <!-- CARD 1: shadow kuning -->
+    <div onclick="openModal('https://www.youtube.com/embed/-sAOWhvheK8?si=E1iu5kGEQlZxPssj')" 
+         class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-400">
+      <div class="relative">
+        <img src="img/trailer/thunder.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div class="text-white text-4xl">&#9658;</div>
+        </div>
+      </div>
+      <div class="px-5 py-4">
+        <p class="font-semibold text-lg">Thunderbolts Marvel Studio</p>
+      </div>
+    </div>
+
+    <!-- CARD 2: shadow biru -->
+    <div onclick="openModal('https://www.youtube.com/embed/YW3sQ16oksY?si=G5YU90oCgLUr_B9g')" 
+         class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500">
+      <div class="relative">
+        <img src="img/trailer/jumbo.jpg" alt="Thumbnail" class="w-full h-52 object-cover">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div class="text-white text-4xl">&#9658;</div>
+        </div>
+      </div>
+      <div class="px-5 py-4">
+        <p class="font-semibold text-lg">JUMBO ~ ANIMASI KARYA </p>
+      </div>
+    </div>
+
+    <!-- CARD 3: shadow merah -->
+    <div onclick="openModal('https://www.youtube.com/embed/GV9AEEIeHrQ?si=vgbGesp8R0AWKC5L&amp')" 
+         class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-red-500">
+      <div class="relative">
+        <img src="img/trailer/civil.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div class="text-white text-4xl">&#9658;</div>
+        </div>
+      </div>
+      <div class="px-5 py-4">
+        <p class="font-semibold text-lg">BATTLE SCENE CIVIL WAR</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!--MODALOPEN POPUP VIDEO-->
+<div id="videoModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 transition-opacity duration-300">
+  <div class="bg-[#101927] rounded-3xl shadow-[0_0_60px_rgba(255,255,255,0.1)] p-4 w-[95%] md:w-[85%] lg:w-[75%] xl:w-[70%] max-w-[1280px] relative animate-fade-in">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl hover:text-red-500 transition">&times;</button>
+    <div class="aspect-video rounded-xl overflow-hidden">
+      <iframe id="videoFrame" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+
+<!--PARTNERSHIP-->
+<section id="partner" class="mt-19 pt-12 pb-20 max-w-6xl mx-auto px-4 text-center">
+  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Partner Kami</h2>
+  <p class="text-yellow-400 mb-10">Kami didukung oleh berbagai mitra terpercaya untuk memberikan layanan terbaik bagi Anda.</p>
+
+  <!-- Mobile Scrollable -->
+  <div class="block lg:hidden space-y-4 overflow-x-auto overflow-visible pb-2 scrollbar-hide">
+    <!-- Baris 1 -->
+    <div class="flex space-x-3 min-w-full px-1 pt-2 pb-4">
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/shopepay.webp" alt="Partner 1" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/gopay.png" alt="Partner 2" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/ovo.png" alt="Partner 3" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/bni.png" alt="Partner 4" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/dana.png" alt="Partner 5" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/mandiri.webp" alt="Partner 6" class="mx-auto h-10 object-contain" />
+      </div>
+    </div>
+    <!-- Baris 2 -->
+    <div class="flex space-x-3 min-w-full px-1 pt-2 pb-4">
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/Mastercard.png" alt="Partner 7" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/seabank.png" alt="Partner 8" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/qris.png" alt="Partner 9" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/danamon-seeklogo.png" alt="Partner 10" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/alfamart.png" alt="Partner 11" class="mx-auto h-10 object-contain" />
+      </div>
+      <div class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+        <img src="img/partnership/indomaret.png" alt="Partner 12" class="mx-auto h-10 object-contain" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Grid (6 columns x 2 rows) -->
+  <div class="hidden lg:grid grid-cols-6 gap-6">
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/shopepay.webp" alt="Partner 1" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/gopay.png" alt="Partner 2" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/ovo.png" alt="Partner 3" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/bni.png" alt="Partner 4" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/dana.png" alt="Partner 5" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/mandiri.webp" alt="Partner 6" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/seabank.png" alt="Partner 7" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/Mastercard.png" alt="Partner 8" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/qris.png" alt="Partner 9" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/danamon-seeklogo.png" alt="Partner 10" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/alfamart.png" alt="Partner 11" class="mx-auto h-14 object-contain" />
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+      <img src="img/partnership/indomaret.png" alt="Partner 12" class="mx-auto h-14 object-contain" />
+    </div>
+  </div>
+</section>
+
+
+<!--FOOTERRRRR-->
+<!-- Lucide Icon -->
+<footer class="text-white px-6 md:px-16 py-10 text-sm">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    
+    <!-- CINETix -->
+    <div>
+      <a href="#" class="text-2xl font-bold text-white flex items-center space-x-2 hover:text-yellow-400 hover:drop-shadow-[0_0_6px_rgba(255,255,0,0.6)] transition duration-200">
+        <i data-lucide="film" class="w-7 h-7 text-red-500"></i>
+        <span><span class="text-red-500">CINE</span><span class="text-yellow-400">Tix</span></span>
+      </a>
+      <p class="text-gray-300 mt-4 leading-relaxed">
+        Platform tiket bioskop dan hiburan modern yang menyatukan kemewahan dan kenyamanan. Jadikan pengalaman Anda tak terlupakan!
+      </p>
+    </div>
+
+    <!-- Navigasi -->
+    <div class="hidden md:block">
+      <h3 class="text-lg font-bold text-yellow-400 mb-3">Navigasi</h3>
+      <ul class="space-y-3 text-gray-200 font-semibold">
+        <li>
+          <a href="#" class="flex items-center space-x-2 group hover:text-sky-400 transition duration-200">
+            <i data-lucide="video" class="w-5 h-5 text-sky-300 group-hover:text-sky-400"></i>
+            <span>Film</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-2 group hover:text-rose-400 transition duration-200">
+            <i data-lucide="utensils" class="w-5 h-5 text-rose-300 group-hover:text-rose-400"></i>
+            <span>Food</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-2 group hover:text-yellow-400 transition duration-200">
+            <i data-lucide="percent" class="w-5 h-5 text-yellow-300 group-hover:text-yellow-400"></i>
+            <span>Promo</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-2 group hover:text-green-400 transition duration-200">
+            <i data-lucide="newspaper" class="w-5 h-5 text-green-300 group-hover:text-green-400"></i>
+            <span>News</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bantuan -->
+    <div>
+      <h3 class="text-lg font-bold text-rose-400 mb-3">Bantuan</h3>
+      <ul class="space-y-3 text-gray-200 font-semibold">
+        <li>
+          <a href="#" class="flex items-center space-x-2 group transition duration-200 hover:text-white">
+            <i data-lucide="help-circle" class="w-5 h-5 group-hover:text-white"></i>
+            <span>FAQ</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-2 group transition duration-200 hover:text-white">
+            <i data-lucide="headphones" class="w-5 h-5 group-hover:text-white"></i>
+            <span>Hubungi Kami</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center space-x-2 group transition duration-200 hover:text-white">
+            <i data-lucide="info" class="w-5 h-5 group-hover:text-white"></i>
+            <span>Tentang Kami</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Ikuti Kami -->
+    <div>
+      <h3 class="text-lg font-bold text-sky-400 mb-3">Ikuti Kami</h3>
+      <div class="flex space-x-4">
+        <a href="#" class="transition duration-200 group">
+          <i data-lucide="facebook" class="w-5 h-5 text-white group-hover:text-[#1877F2]"></i>
+        </a>
+        <a href="#" class="transition duration-200 group">
+          <i data-lucide="instagram" class="w-5 h-5 text-white group-hover:text-[#C13584]"></i>
+        </a>
+        <a href="#" class="transition duration-200 group">
+          <i data-lucide="twitter" class="w-5 h-5 text-white group-hover:text-[#1DA1F2]"></i>
+        </a>
+        <a href="#" class="transition duration-200 group">
+          <i data-lucide="youtube" class="w-5 h-5 text-white group-hover:text-[#FF0000]"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Garis -->
+  <hr class="my-8 border-gray-700 max-w-7xl mx-auto" />
+
+  <!-- Copyright -->
+  <p class="text-center text-gray-400 text-sm">
+    © 2025 <span class="font-semibold">CINETix</span>. Hak Cipta Kelompok 7
+</footer>
+
+
+
+
+
+<script>
+  lucide.createIcons();
+</script>
+<script src="https://kit.fontawesome.com/your-api-key.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+  AOS.init();
+</script>
+<script>
+
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + ' custom-bullet"></span>';
+      },
+    },
+  });
+     
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('show');
+      } else {
+        mobileMenu.classList.remove('show');
+      }
+      menuToggle.classList.toggle('open');
+    });
+    
+
+    function openModal(videoUrl) {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('videoFrame');
+    iframe.src = videoUrl + "?autoplay=1";
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('videoFrame');
+    iframe.src = "";
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+  }
+
+</script>
+</body>
+</html>
